@@ -21,11 +21,19 @@ namespace Zadanie01
         {
             var service = new PimsoService();
             var pisma = service.PobierzPismaWgStandardow();
-            Console.WriteLine("Wszystkie pisma priorytetowe, które nie zostały wysłane: {0}", pisma.Count);
+            Console.WriteLine("Zadanie 1");
+
+            Console.WriteLine("Punkt 1 -> Wszystkie wysyłki:");
+            var wysylki = service.PobierzWysylkiWgStandardow();
+            ConsoleTable.From<KorespondencjaPismaModel>(wysylki).Write();
+
+
+            Console.WriteLine("Punkt 2-> Wszystkie pisma priorytetowe, które nie zostały wysłane: {0}", pisma.Count);
             ConsoleTable.From<PismoModel>(pisma).Write();
 
-            var zadanie02 = service.PobierzWysylkiWgStandardow();
-            ConsoleTable.From<KorespondencjaPismaModel>(zadanie02).Write();
+            Console.WriteLine("Punkt 3 -> Liczba wyslanych pism wg daty");
+            var asd =  service.PobierzLiczbeWyslanychPismWgDnia();
+            ConsoleTable.From<WysylkiModel>(asd).Write();
             Console.ReadKey();
         }
     }
