@@ -16,22 +16,35 @@ namespace Zadanie03
         static void Main(string[] args)
         {
             var dane = PrzygotujDane();
-            var zastepstwawWDanymDniu = Service.ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(dane.Item1, dane.Item2);
+            var zastepstwa = Service.ZastepstwoService.PobierzZastepstwaNaWgDaty(dane.Item1, dane.Item2);
             Console.WriteLine("Zadanie 3");
             Console.WriteLine($"Wszystkie zastępstwa w dniu {dane.Item1} ");
-            ConsoleTable.From(zastepstwawWDanymDniu).Write();
+            ConsoleTable.From(zastepstwa).Write();
             Console.ReadKey();
         }
-        private  static Tuple<DateTime, List<Zastepstwo>> PrzygotujDane()
+        private static Tuple<DateTime, List<Zastepstwo>> PrzygotujDane()
         {
             DateTime data = new DateTime(2020, 5, 2);
 
             var zastepstwa = new List<Zastepstwo>
             {
-                new Zastepstwo {Id = 1, DataRozpoczecia = null, DataZakonczenia = null},
-                new Zastepstwo {Id = 2, DataRozpoczecia = new DateTime(2020, 1, 1), DataZakonczenia = null},
-                new Zastepstwo {Id = 3, DataRozpoczecia = null, DataZakonczenia = new DateTime(2020, 12, 31)},
-                new Zastepstwo {Id = 4, DataRozpoczecia = new DateTime(2020, 5, 8), DataZakonczenia = new DateTime(2020, 5, 14)}
+                new Zastepstwo {
+                                Id = 1,
+                                DataRozpoczecia = null,
+                                DataZakonczenia = null
+                               },
+                new Zastepstwo {
+                                Id = 2,
+                                DataRozpoczecia = new DateTime(2020, 1, 1),
+                                DataZakonczenia = null},
+                new Zastepstwo {
+                                Id = 3,
+                                DataRozpoczecia = null,
+                                DataZakonczenia = new DateTime(2020, 12, 31)},
+                new Zastepstwo {
+                                Id = 4,
+                                DataRozpoczecia = new DateTime(2020, 5, 8),
+                                DataZakonczenia = new DateTime(2020, 5, 14)}
             };
 
             var dane = Tuple.Create(data, zastepstwa);

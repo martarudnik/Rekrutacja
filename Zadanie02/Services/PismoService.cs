@@ -8,7 +8,7 @@ namespace Zadanie02.Services
 {
     public class PismoService
     {
-        private  TestContext testContext;
+        private TestContext testContext;
         public PismoService()
         {
             ZdefiniujContext();
@@ -21,12 +21,12 @@ namespace Zadanie02.Services
         {
             return testContext.Pisma.Where(x => !x.CzySkasowany)
                                     .Where(x => x.Priorytet)
-                                    .Where(x => x.Rocznik == 2020)
+                                    .Where(x => x.Rocznik == Const.Const.Rocznik)
                                     .ToList();
         }
         private void ZdefiniujContext()
         {
-                        var options = new DbContextOptionsBuilder<TestContext>()
+            var options = new DbContextOptionsBuilder<TestContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 

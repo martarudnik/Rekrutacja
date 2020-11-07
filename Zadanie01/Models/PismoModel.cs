@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PobieranieDanychZBazy.Models
+﻿namespace PobieranieDanychZBazy.Models
 {
     public class PismoModel
     {

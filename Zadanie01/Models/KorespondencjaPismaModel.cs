@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PobieranieDanychZBazy.Models
+﻿namespace PobieranieDanychZBazy.Models
 {
     public class KorespondencjaPismaModel
     {
