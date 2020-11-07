@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zadanie03
+namespace Zadanie03.Models
 {
     public class Zastepstwo
     {

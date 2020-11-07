@@ -8,13 +8,11 @@ namespace Zadanie02.Services
 {
     public class PismoService
     {
-        private TestContext testContext;
-       
+        private  TestContext testContext;
         public PismoService()
         {
             ZdefiniujContext();
         }
-
         public IEnumerable<Pismo> PobierzWszytskiePisma()
         {
             return testContext.Pisma;
@@ -26,10 +24,11 @@ namespace Zadanie02.Services
                                     .Where(x => x.Rocznik == 2020)
                                     .ToList();
         }
-
         private void ZdefiniujContext()
         {
-            var options = new DbContextOptionsBuilder<TestContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
+                        var options = new DbContextOptionsBuilder<TestContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
 
             this.testContext = new TestContext(options);
             testContext.Database.EnsureCreated();

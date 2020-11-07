@@ -20,8 +20,10 @@ namespace Zadanie02
         static void Main(string[] args)
         {
             var serwis = new PismoService();
-            var pismaWgStanbdardow = serwis.PobierzPismaWgStandardow();
-            ConsoleTable.From<Pismo>(pismaWgStanbdardow).Write();
+            var pismaWgWytycznych = serwis.PobierzPismaWgStandardow();
+            Console.WriteLine("Zadanie 2");
+            Console.WriteLine("Wszytkie priorytetowe, nieusuniete pisma z 2020 roku:s");
+            ConsoleTable.From<Pismo>(pismaWgWytycznych).Write();
             Console.ReadKey();
         }
     }

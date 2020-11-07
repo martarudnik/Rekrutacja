@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Zadanie01.Database
+namespace PobieranieDanychZBazy.Models
 {
-    public class Pismo
+    public class PismoModel
     {
         public string Id { get; set; }
 
@@ -11,7 +13,5 @@ namespace Zadanie01.Database
         public string Numer { get; set; }
 
         public bool Priorytet { get; set; }
-
-        public ICollection<KorespondencjaPisma> KorespondencjePisma { get; set; }
     }
 }

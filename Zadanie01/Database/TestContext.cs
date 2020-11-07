@@ -5,9 +5,14 @@ namespace Zadanie01.Database
 {
     public class TestContext : DbContext
     {
-        public TestContext(DbContextOptions<TestContext> options)
-            : base(options)
+        private const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Rekrutacja;Trusted_Connection=True;";
+        public TestContext(DbContextOptions<TestContext> options) : base(options)
         {
+        }
+        public TestContext() : base() { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(connectionString);
         }
 
         public DbSet<Pismo> Pisma { get; set; }
@@ -16,6 +21,17 @@ namespace Zadanie01.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<KorespondencjaPisma>()
+             .HasKey(bc => new { bc.IdKorespondencja, bc.IdPismo });
+            modelBuilder.Entity<KorespondencjaPisma>()
+                .HasOne(bc => bc.Korespondencja)
+                .WithMany(b => b.KorespondencjePisma)
+                .HasForeignKey(bc => bc.IdKorespondencja);
+            modelBuilder.Entity<KorespondencjaPisma>()
+                .HasOne(bc => bc.Pismo)
+                .WithMany(c => c.KorespondencjePisma)
+                .HasForeignKey(bc => bc.IdPismo);
+
             modelBuilder.Entity<Pismo>().HasData(
                 new Pismo {Id = "p1", Nazwa = "Pismo 1", Numer = "1/2020"},
                 new Pismo {Id = "p2", Nazwa = "Pismo 2", Numer = "2/2020"},

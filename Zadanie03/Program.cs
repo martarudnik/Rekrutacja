@@ -7,6 +7,7 @@
 using ConsoleTables;
 using System;
 using System.Collections.Generic;
+using Zadanie03.Models;
 
 namespace Zadanie03
 {
@@ -14,6 +15,17 @@ namespace Zadanie03
     {
         static void Main(string[] args)
         {
+            var dane = PrzygotujDane();
+            var zastepstwawWDanymDniu = Service.ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(dane.Item1, dane.Item2);
+            Console.WriteLine("Zadanie 3");
+            Console.WriteLine($"Wszystkie zastępstwa w dniu {dane.Item1} ");
+            ConsoleTable.From(zastepstwawWDanymDniu).Write();
+            Console.ReadKey();
+        }
+        private  static Tuple<DateTime, List<Zastepstwo>> PrzygotujDane()
+        {
+            DateTime data = new DateTime(2020, 5, 2);
+
             var zastepstwa = new List<Zastepstwo>
             {
                 new Zastepstwo {Id = 1, DataRozpoczecia = null, DataZakonczenia = null},
@@ -22,11 +34,8 @@ namespace Zadanie03
                 new Zastepstwo {Id = 4, DataRozpoczecia = new DateTime(2020, 5, 8), DataZakonczenia = new DateTime(2020, 5, 14)}
             };
 
-            DateTime date = new DateTime(2020, 5, 2);
-            var zastepstwawWDanymDniu = Service.PobierzZastepstwaNaPodstawieDaty(date, zastepstwa);
-            
-            ConsoleTable.From<Zastepstwo>(zastepstwawWDanymDniu).Write();
-            Console.ReadKey();
+            var dane = Tuple.Create(data, zastepstwa);
+            return dane;
         }
     }
 }

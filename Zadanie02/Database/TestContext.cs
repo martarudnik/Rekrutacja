@@ -5,8 +5,7 @@ namespace Zadanie02.Database
 {
     public class TestContext : DbContext
     {
-        public TestContext(DbContextOptions<TestContext> options)
-            : base(options)
+        public TestContext(DbContextOptions<TestContext> options) : base(options)
         {
         }
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zadanie03.Models;
 
-namespace Zadanie03
+namespace Zadanie03.Service
 {
-    public static class Service
+    public static class ZastepstwoService
     {
         public static List<Zastepstwo> PobierzZastepstwaNaPodstawieDaty(DateTime date, List<Zastepstwo> zastepstwa)
         {

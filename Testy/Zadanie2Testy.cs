@@ -7,7 +7,8 @@ namespace Testy
 {
     public class Zadanie2Testy
     {
-        /* Wersja pierwsza w zasadzie to tak bym przetestowała ten problem, porownała otrzymane wyniki z oczekiwaniami */
+        const int Rocznik = 2020;
+        /* Wersja pierwsza w zasadzie to tak bym przetestowała ten problem - porownała otrzymane wyniki z oczekiwaniami */
         [Fact]
         public void SprawdzPismaWgStandardow_Wersja1()
         {
@@ -40,7 +41,7 @@ namespace Testy
             
             foreach (var pismo in wszytkiePisma)
             {
-                if (!pismo.CzySkasowany && pismo.Priorytet && pismo.Rocznik == 2020)
+                if (!pismo.CzySkasowany && pismo.Priorytet && pismo.Rocznik == Rocznik)
                 {
                     pismaWgStandardow.Add(pismo);
                 }
