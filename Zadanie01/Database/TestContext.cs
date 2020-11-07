@@ -5,7 +5,13 @@ namespace Zadanie01.Database
 {
     public class TestContext : DbContext
     {
-        private const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Rekrutacja;Trusted_Connection=True;";
+        private readonly string connectionString;
+
+        public TestContext(string connectionString) : base()
+        {
+            this.connectionString = connectionString;
+        }
+
         public TestContext(DbContextOptions<TestContext> options) : base(options)
         {
         }

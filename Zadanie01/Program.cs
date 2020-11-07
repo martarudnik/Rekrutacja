@@ -9,32 +9,58 @@
 /*                                                                                                       */
 /* ***************************************************************************************************** */
 using ConsoleTables;
+using Microsoft.Extensions.Configuration;
 using PobieranieDanychZBazy.Models;
 using PobieranieDanychZBazy.Services;
 using System;
+using System.IO;
 
 namespace Zadanie01
 {
-    class Program
+    public class Program
     {
+        private static IConfiguration _configuration;
         static void Main(string[] args)
         {
-            var service = new PimsoService();
-            var pisma = service.PobierzPismaWgStandardow();
-            Console.WriteLine("Zadanie 1");
+            UstawKonfiguracje();
+
+            PismoService pismoService = new PismoService(_configuration);
+
+            PobierzWysylkiWgStandardow(pismoService);
+            PobierzPismaWgStandardow(pismoService);
+            PobierzLiczbeWyslanychPismWgDnia(pismoService);
+
+            Console.ReadKey();
+        }
+
+        static void UstawKonfiguracje()
+        {
+            var builder = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            _configuration = builder.Build();
+        }
+        private static void PobierzWysylkiWgStandardow(PismoService pismoService)
+        { 
+            var wysylki = pismoService.PobierzWysylkiWgStandardow();
 
             Console.WriteLine("Punkt 1 -> Wszystkie wysyłki:");
-            var wysylki = service.PobierzWysylkiWgStandardow();
-            ConsoleTable.From<KorespondencjaPismaModel>(wysylki).Write();
-
+            ConsoleTable.From(wysylki).Write();
+        }
+        private static void PobierzPismaWgStandardow(PismoService pismoService)
+        {
+            var pisma = pismoService.PobierzPismaWgStandardow();
 
             Console.WriteLine("Punkt 2-> Wszystkie pisma priorytetowe, które nie zostały wysłane: {0}", pisma.Count);
-            ConsoleTable.From<PismoModel>(pisma).Write();
+            ConsoleTable.From(pisma).Write();
+        }
+        private static void PobierzLiczbeWyslanychPismWgDnia(PismoService pismoService)
+        {
+            var liczbeWyslanychPismWgDnia = pismoService.PobierzLiczbeWyslanychPismWgDnia();
 
             Console.WriteLine("Punkt 3 -> Liczba wyslanych pism wg daty");
-            var asd =  service.PobierzLiczbeWyslanychPismWgDnia();
-            ConsoleTable.From<WysylkiModel>(asd).Write();
-            Console.ReadKey();
+            ConsoleTable.From(liczbeWyslanychPismWgDnia).Write();
         }
     }
 }
