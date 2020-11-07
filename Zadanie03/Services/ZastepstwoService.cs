@@ -7,7 +7,7 @@ namespace Zadanie03.Service
 {
     public static class ZastepstwoService
     {
-        public static List<Zastepstwo> PobierzZastepstwaNaWgDaty(DateTime date, List<Zastepstwo> zastepstwa)
+        public static List<Zastepstwo> PobierzZastepstwaWgDaty(DateTime date, List<Zastepstwo> zastepstwa)
         {
             var resultaty = zastepstwa.Where(e => (e.DataRozpoczecia.HasValue && e.DataRozpoczecia <= date) || !e.DataRozpoczecia.HasValue)
                                       .Where(e => (e.DataZakonczenia.HasValue && e.DataZakonczenia >= date) || !e.DataZakonczenia.HasValue)

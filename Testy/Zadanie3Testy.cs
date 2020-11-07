@@ -13,7 +13,7 @@ namespace Testy
         public void SprawdzZastepstwa_2Resultaty()
         {
             var data = new DateTime(2020, 1, 10);
-            var resulaty = ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
+            var resulaty = ZastepstwoService.PobierzZastepstwaWgDaty(data, PrzygotujDane());
             Assert.Equal(2, resulaty.Count);
         }
 
@@ -21,14 +21,14 @@ namespace Testy
         public void SprawdzZastepstwa_2Resultaty1()
         {
             var data = new DateTime(2020, 1, 10);
-            var resulaty = ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
+            var resulaty = ZastepstwoService.PobierzZastepstwaWgDaty(data, PrzygotujDane());
             Assert.Equal(2, resulaty.Count);
         }
         [Fact]
         public void SprawdzZastepstwa_3RResultaty()
         {
             var data = new DateTime(2020, 1, 16);
-            var resulaty = ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
+            var resulaty = ZastepstwoService.PobierzZastepstwaWgDaty(data, PrzygotujDane());
             Assert.Equal(3, resulaty.Count);
         }
 
@@ -53,7 +53,7 @@ namespace Testy
         public void SprawdzZastepstwa_2ResultatyWersja2()
         {
             var data = new DateTime(2020, 1, 10);
-            var resulaty = ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
+            var resulaty = ZastepstwoService.PobierzZastepstwaWgDaty(data, PrzygotujDane());
             var resultatyTestu = PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
             Assert.Equal(resultatyTestu.Count, resulaty.Count);
         }
@@ -62,7 +62,7 @@ namespace Testy
         public void SprawdzZastepstwa_2Resultaty1Wersja2()
         {
             var data = new DateTime(2020, 1, 10);
-            var resulaty = ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
+            var resulaty = ZastepstwoService.PobierzZastepstwaWgDaty(data, PrzygotujDane());
             var resultatyTestu = PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
             Assert.Equal(resultatyTestu.Count, resulaty.Count);
         }
@@ -70,7 +70,7 @@ namespace Testy
         public void SprawdzZastepstwa_3RResultatyWersja2()
         {
             var data = new DateTime(2020, 1, 16);
-            var resulaty = ZastepstwoService.PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
+            var resulaty = ZastepstwoService.PobierzZastepstwaWgDaty(data, PrzygotujDane());
             var resultatyTestu = PobierzZastepstwaNaPodstawieDaty(data, PrzygotujDane());
             Assert.Equal(resultatyTestu.Count, resulaty.Count);
         }

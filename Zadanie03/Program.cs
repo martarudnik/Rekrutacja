@@ -16,7 +16,7 @@ namespace Zadanie03
         static void Main(string[] args)
         {
             var dane = PrzygotujDane();
-            var zastepstwa = Service.ZastepstwoService.PobierzZastepstwaNaWgDaty(dane.Item1, dane.Item2);
+            var zastepstwa = Service.ZastepstwoService.PobierzZastepstwaWgDaty(dane.Item1, dane.Item2);
             Console.WriteLine("Zadanie 3");
             Console.WriteLine($"Wszystkie zastępstwa w dniu {dane.Item1} ");
             ConsoleTable.From(zastepstwa).Write();

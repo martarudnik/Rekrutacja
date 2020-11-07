@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using PobieranieDanychZBazy.Interfaces;
 using PobieranieDanychZBazy.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,13 @@ using Zadanie01.Database;
 
 namespace PobieranieDanychZBazy.Services
 {
-    public class PismoService
+    public class PismoService : IPismoService
     {
         private readonly IConfiguration _configuration;
-        public PismoService(IConfiguration _configuration)
+
+        public PismoService(IConfiguration configuration)
         {
-            this._configuration = _configuration;
+            this._configuration = configuration;
         }
         public List<PismoModel> PobierzPismaWgStandardow()
         {
