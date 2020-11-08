@@ -22,7 +22,7 @@ namespace Zadanie02
             var serwis = new PismoService();
             var pismaWgWytycznych = serwis.PobierzPismaWgStandardow();
             Console.WriteLine("Zadanie 2");
-            Console.WriteLine("Wszytkie priorytetowe, nieusuniete pisma z 2020 roku:s");
+            Console.WriteLine("Wszytkie priorytetowe, nieusuniete pisma z 2020 roku: ");
             ConsoleTable.From<PismoModel>(pismaWgWytycznych).Write();
             Console.ReadKey();
         }
