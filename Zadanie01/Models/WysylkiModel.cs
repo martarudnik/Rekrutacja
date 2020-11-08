@@ -1,4 +1,4 @@
-﻿namespace PobieranieDanychZBazy.Models
+﻿namespace Zadanie01.Models
 {
     public class WysylkiModel
     {

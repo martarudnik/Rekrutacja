@@ -1,28 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using PobieranieDanychZBazy.Interfaces;
-using PobieranieDanychZBazy.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Zadanie01.Database;
+using Zadanie01.Interfaces;
+using Zadanie01.Models;
 
-namespace PobieranieDanychZBazy.Services
+namespace Zadanie01.Services
 {
     public class PismoService : IPismoService
     {
-        const string  ConnectiongStringName = "Default";
+        private readonly TestContext _testContext;
 
-        private readonly IConfiguration _configuration;
-
-        public PismoService(IConfiguration configuration)
+        public PismoService( TestContext testContext)
         {
-            this._configuration = configuration;
+            this._testContext = testContext;
         }
         public List<PismoModel> PobierzPismaWgStandardow()
         {
-            using var context = new TestContext(_configuration.GetConnectionString(ConnectiongStringName));
-            var pisma = context.Pisma.Where(x => x.Priorytet)
-                                     .Where(item => !context.KorespondencjePisma.Any(item2 => item2.IdPismo == item.Id))
+            var pisma = _testContext.Pisma.Where(x => x.Priorytet)
+                                     .Where(item => !_testContext.KorespondencjePisma.Any(item2 => item2.IdPismo == item.Id))
                                      .Select(a => new PismoModel
                                      {
                                          Id = a.Id,
@@ -35,8 +31,7 @@ namespace PobieranieDanychZBazy.Services
         }
         public List<KorespondencjaPismaModel> PobierzWysylkiWgStandardow()
         {
-            using var context = new TestContext(_configuration.GetConnectionString(ConnectiongStringName));
-            var korespondencje = context.KorespondencjePisma
+            var korespondencje = _testContext.KorespondencjePisma
                                  .Include(x => x.Pismo)
                                  .Include(x => x.Korespondencja)
                                  .OrderByDescending(x => x.Korespondencja.DataWysylki)
@@ -52,9 +47,7 @@ namespace PobieranieDanychZBazy.Services
 
         public List<WysylkiModel> PobierzLiczbeWyslanychPismWgDnia()
         {
-            using var context = new TestContext(_configuration.GetConnectionString(ConnectiongStringName));
-
-            var resultaty = context.KorespondencjePisma
+            var resultaty = _testContext.KorespondencjePisma
                            .Include(x => x.Korespondencja)
                            .GroupBy(p => p.Korespondencja.DataWysylki)
                            .Select(g => new WysylkiModel

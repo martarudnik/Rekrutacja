@@ -11,8 +11,8 @@
 using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
 using PobieranieDanychZBazy;
-using PobieranieDanychZBazy.Interfaces;
 using System;
+using Zadanie01.Interfaces;
 
 namespace Zadanie01
 {
@@ -32,7 +32,7 @@ namespace Zadanie01
         }
 
         private static void PobierzWysylkiWgStandardow(IPismoService pismoService)
-        { 
+        {
             var wysylki = pismoService.PobierzWysylkiWgStandardow();
 
             Console.WriteLine("Punkt 1 -> Wszystkie wysyłki:");

@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PobieranieDanychZBazy.Interfaces;
-using PobieranieDanychZBazy.Services;
 using System;
 using System.IO;
+using Zadanie01.Database;
+using Zadanie01.Interfaces;
+using Zadanie01.Services;
 
 namespace PobieranieDanychZBazy
 {
@@ -13,17 +15,19 @@ namespace PobieranieDanychZBazy
         {
             var builder = new ConfigurationBuilder()
                         .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .Build();
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            var connectionstring = configuration.GetConnectionString("Default");
 
             var collection = new ServiceCollection()
-                            .AddSingleton<IConfiguration>(builder)
-                            .AddSingleton<IPismoService, PismoService>();
+                            .AddSingleton<IPismoService, PismoService>()
+                            .AddDbContext<TestContext>(options => options.UseSqlServer(connectionstring));
 
             Provider = collection.BuildServiceProvider();
         }
 
         public IServiceProvider Provider { get; }
-        public IConfiguration Configuration { get; }
     }
 }

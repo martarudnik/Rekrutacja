@@ -1,9 +1,7 @@
-﻿using PobieranieDanychZBazy.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Zadanie01.Models;
 
-namespace PobieranieDanychZBazy.Interfaces
+namespace Zadanie01.Interfaces
 {
     public interface IPismoService
     {
