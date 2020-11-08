@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using Xunit;
 using Zadanie02.Const;
+using Zadanie02.Interfaces;
 using Zadanie02.Models;
 using Zadanie02.Services;
 
@@ -8,12 +10,22 @@ namespace Testy
 {
     public class Zadanie2Testy
     {
+        private readonly IPismoService _pismoService;
+
+        public Zadanie2Testy()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<IPismoService, PismoService>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            _pismoService = serviceProvider.GetService<IPismoService>();
+        } 
         /* Wersja pierwsza w zasadzie to tak bym przetestowała ten problem - porownała otrzymane wyniki z oczekiwaniami */
         [Fact]
         public void SprawdzPismaWgStandardow_Wersja1()
         {
-            var service = new PismoService();
-            var result = service.PobierzPismaWgStandardow();
+            var result = _pismoService.PobierzPismaWgStandardow();
             Assert.Equal(1, result.Count);
         }
 
@@ -26,8 +38,7 @@ namespace Testy
         [Fact]
         public void SprawdzPismaWgStandardow_Wersja2()
         {
-            var service = new PismoService();
-            var pismaWgStandardowZService = service.PobierzPismaWgStandardow();
+            var pismaWgStandardowZService = _pismoService.PobierzPismaWgStandardow();
             var pismaWgStandardowZTestWhere = PobierzPismaWgStandardowTestWhere();
 
             Assert.Equal(pismaWgStandardowZTestWhere.Count, pismaWgStandardowZService.Count);
@@ -35,8 +46,7 @@ namespace Testy
 
         private List<PismoModel> PobierzPismaWgStandardowTestWhere()
         {
-            var service = new PismoService();
-            var wszytkiePisma = service.PobierzWszytskiePisma();
+            var wszytkiePisma = _pismoService.PobierzWszytskiePisma();
 
             List<PismoModel> pismaWgStandardow = new List<PismoModel>();
             

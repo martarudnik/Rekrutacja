@@ -9,7 +9,9 @@
 /*                                                                                                       */
 /* ***************************************************************************************************** */
 using ConsoleTables;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using Zadanie02.Interfaces;
 using Zadanie02.Models;
 using Zadanie02.Services;
 
@@ -19,8 +21,12 @@ namespace Zadanie02
     {
         static void Main(string[] args)
         {
-            var serwis = new PismoService();
-            var pismaWgWytycznych = serwis.PobierzPismaWgStandardow();
+
+            var startup = new Startup();
+
+            var pismoService = startup.Provider.GetRequiredService<IPismoService>(); 
+
+            var pismaWgWytycznych = pismoService.PobierzPismaWgStandardow();
             Console.WriteLine("Zadanie 2");
             Console.WriteLine("Wszytkie priorytetowe, nieusuniete pisma z 2020 roku: ");
             ConsoleTable.From<PismoModel>(pismaWgWytycznych).Write();

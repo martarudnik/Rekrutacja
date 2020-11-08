@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Zadanie02.Models;
 
 namespace Zadanie02.Interfaces
 {
     public interface IPismoService
     {
-        IEnumerable<PismoModel> PobierzWszytskiePisma();
+        IList<PismoModel> PobierzWszytskiePisma();
+        IList<PismoModel> PobierzPismaWgStandardow();
     }
 }

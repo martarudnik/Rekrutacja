@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zadanie02.Database;
+using Zadanie02.Interfaces;
 using Zadanie02.Models;
 
 namespace Zadanie02.Services
 {
-    public class PismoService
+    public class PismoService:IPismoService
     {
         private TestContext _testContext;
         public PismoService()

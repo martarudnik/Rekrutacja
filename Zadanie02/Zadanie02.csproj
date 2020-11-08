@@ -10,6 +10,13 @@
         <PackageReference Include="ConsoleTables" Version="2.4.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
