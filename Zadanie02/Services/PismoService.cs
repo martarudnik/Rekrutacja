@@ -10,18 +10,24 @@ namespace Zadanie02.Services
 {
     public class PismoService
     {
-        private TestContext testContext;
+        private TestContext _testContext;
         public PismoService()
         {
             ZdefiniujContext();
         }
-        public IEnumerable<Pismo> PobierzWszytskiePisma()
+        public IList<PismoModel> PobierzWszytskiePisma()
         {
-            return testContext.Pisma;
+            var resultaty = _testContext.Pisma.ToList();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Pismo, PismoModel>();
+            });
+
+            return config.CreateMapper().Map<List<Pismo>, List<PismoModel>>(resultaty);
         }
         public IList<PismoModel> PobierzPismaWgStandardow()
         {
-            var resultaty =  testContext.Pisma.Where(x => !x.CzySkasowany)
+            var resultaty = _testContext.Pisma.Where(x => !x.CzySkasowany)
                                     .Where(x => x.Priorytet)
                                     .Where(x => x.Rocznik == Const.Const.Rocznik)
                                     .ToList();
@@ -40,8 +46,8 @@ namespace Zadanie02.Services
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
-            this.testContext = new TestContext(options);
-            testContext.Database.EnsureCreated();
+            this._testContext = new TestContext(options);
+            _testContext.Database.EnsureCreated();
         }
     }
 }

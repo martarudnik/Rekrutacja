@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Xunit;
-using Zadanie02.Database;
+using Zadanie02.Const;
+using Zadanie02.Models;
 using Zadanie02.Services;
 
 namespace Testy
 {
     public class Zadanie2Testy
     {
-        const int Rocznik = 2020;
         /* Wersja pierwsza w zasadzie to tak bym przetestowała ten problem - porownała otrzymane wyniki z oczekiwaniami */
         [Fact]
         public void SprawdzPismaWgStandardow_Wersja1()
@@ -33,15 +33,16 @@ namespace Testy
             Assert.Equal(pismaWgStandardowZTestWhere.Count, pismaWgStandardowZService.Count);
         }
 
-        private List<Pismo> PobierzPismaWgStandardowTestWhere()
+        private List<PismoModel> PobierzPismaWgStandardowTestWhere()
         {
             var service = new PismoService();
             var wszytkiePisma = service.PobierzWszytskiePisma();
-            List<Pismo> pismaWgStandardow = new List<Pismo>();
+
+            List<PismoModel> pismaWgStandardow = new List<PismoModel>();
             
-            foreach (var pismo in wszytkiePisma)
+            foreach (PismoModel pismo in wszytkiePisma)
             {
-                if (!pismo.CzySkasowany && pismo.Priorytet && pismo.Rocznik == Rocznik)
+                if (!pismo.CzySkasowany && pismo.Priorytet && pismo.Rocznik == Const.Rocznik)
                 {
                     pismaWgStandardow.Add(pismo);
                 }
