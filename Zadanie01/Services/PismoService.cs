@@ -10,6 +10,8 @@ namespace PobieranieDanychZBazy.Services
 {
     public class PismoService : IPismoService
     {
+        const string  ConnectiongStringName = "Default";
+
         private readonly IConfiguration _configuration;
 
         public PismoService(IConfiguration configuration)
@@ -18,7 +20,7 @@ namespace PobieranieDanychZBazy.Services
         }
         public List<PismoModel> PobierzPismaWgStandardow()
         {
-            using var context = new TestContext(_configuration.GetConnectionString("Default"));
+            using var context = new TestContext(_configuration.GetConnectionString(ConnectiongStringName));
             var pisma = context.Pisma.Where(x => x.Priorytet)
                                      .Where(item => !context.KorespondencjePisma.Any(item2 => item2.IdPismo == item.Id))
                                      .Select(a => new PismoModel
@@ -33,9 +35,10 @@ namespace PobieranieDanychZBazy.Services
         }
         public List<KorespondencjaPismaModel> PobierzWysylkiWgStandardow()
         {
-            using var context = new TestContext(_configuration.GetConnectionString("Default"));
-            var korespondencje = context.KorespondencjePisma.Include("Pismo")
-                                 .Include("Korespondencja")
+            using var context = new TestContext(_configuration.GetConnectionString(ConnectiongStringName));
+            var korespondencje = context.KorespondencjePisma
+                                 .Include(x => x.Pismo)
+                                 .Include(x => x.Korespondencja)
                                  .OrderByDescending(x => x.Korespondencja.DataWysylki)
                                  .Select(x => new KorespondencjaPismaModel
                                  {
@@ -49,17 +52,16 @@ namespace PobieranieDanychZBazy.Services
 
         public List<WysylkiModel> PobierzLiczbeWyslanychPismWgDnia()
         {
-            using var context = new TestContext(_configuration.GetConnectionString("Default"));
+            using var context = new TestContext(_configuration.GetConnectionString(ConnectiongStringName));
+
             var resultaty = context.KorespondencjePisma
-                           .Include(x => x.Pismo)
                            .Include(x => x.Korespondencja)
-                           .Select(x => new WysylkiModel()
+                           .GroupBy(p => p.Korespondencja.DataWysylki)
+                           .Select(g => new WysylkiModel
                            {
-                               DataWysylki = x.Korespondencja.DataWysylki.ToString("MM/dd/yyyy"),
-                               LiczbaWyslanychPism = x.Korespondencja.KorespondencjePisma.Count
-                           })
-                           .Distinct()
-                           .ToList();
+                               DataWysylki = g.Key.ToString("MM/dd/yyyy"),
+                               LiczbaWyslanychPism = g.Count()
+                           }).ToList();
 
             return resultaty;
         }
