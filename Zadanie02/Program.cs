@@ -10,7 +10,7 @@
 /* ***************************************************************************************************** */
 using ConsoleTables;
 using System;
-using Zadanie02.Database;
+using Zadanie02.Models;
 using Zadanie02.Services;
 
 namespace Zadanie02
@@ -23,7 +23,7 @@ namespace Zadanie02
             var pismaWgWytycznych = serwis.PobierzPismaWgStandardow();
             Console.WriteLine("Zadanie 2");
             Console.WriteLine("Wszytkie priorytetowe, nieusuniete pisma z 2020 roku:s");
-            ConsoleTable.From<Pismo>(pismaWgWytycznych).Write();
+            ConsoleTable.From<PismoModel>(pismaWgWytycznych).Write();
             Console.ReadKey();
         }
     }
