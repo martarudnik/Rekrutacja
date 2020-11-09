@@ -9,8 +9,10 @@
 /*                                                                                                       */
 /* ***************************************************************************************************** */
 using ConsoleTables;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Zadanie02.Database;
 using Zadanie02.Interfaces;
 using Zadanie02.Models;
 using Zadanie02.Services;
@@ -32,5 +34,6 @@ namespace Zadanie02
             ConsoleTable.From<PismoModel>(pismaWgWytycznych).Write();
             Console.ReadKey();
         }
+       
     }
 }

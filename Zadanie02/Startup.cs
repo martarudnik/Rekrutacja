@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
+using Zadanie02.Database;
 using Zadanie02.Interfaces;
 using Zadanie02.Services;
 
@@ -11,19 +14,16 @@ namespace Zadanie02
     {
         public Startup()
         {
-            var builder = new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .Build();
-
             var collection = new ServiceCollection()
-                            .AddSingleton<IConfiguration>(builder)
-                            .AddSingleton<IPismoService, PismoService>();
+                                .AddSingleton<IPismoService, PismoService>();
+
+            collection.AddDbContextPool<PismoContext>(
+                            options => options.UseSqlServer(ConfigSettings.ConnectionString,
+                            b => b.MigrationsAssembly(typeof(PismoContext).Assembly.GetName().Name)));
 
             Provider = collection.BuildServiceProvider();
         }
 
         public IServiceProvider Provider { get; }
-        public IConfiguration Configuration { get; }
     }
 }

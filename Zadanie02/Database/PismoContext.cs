@@ -3,9 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Zadanie02.Database
 {
-    public class TestContext : DbContext
+    public class PismoContext : DbContext
     {
-        public TestContext(DbContextOptions<TestContext> options) : base(options)
+
+        public PismoContext(DbContextOptions<PismoContext> options) : base(options)
         {
         }
 

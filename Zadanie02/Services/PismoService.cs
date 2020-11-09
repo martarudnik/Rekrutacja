@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zadanie02.Database;
@@ -11,19 +9,19 @@ namespace Zadanie02.Services
 {
     public class PismoService:IPismoService
     {
-        private TestContext _testContext;
-        public PismoService()
+        private readonly PismoContext _testContext;
+        public PismoService(PismoContext testContext)
         {
-            ZdefiniujContext();
+            this._testContext = testContext;
         }
         public IList<PismoModel> PobierzWszytskiePisma()
         {
             var resultaty = _testContext.Pisma.ToList();
+
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Pismo, PismoModel>();
             });
-
             return config.CreateMapper().Map<List<Pismo>, List<PismoModel>>(resultaty);
         }
         public IList<PismoModel> PobierzPismaWgStandardow()
@@ -40,15 +38,6 @@ namespace Zadanie02.Services
 
             return config.CreateMapper().Map<List<Pismo>, List<PismoModel>>(resultaty);
 
-        }
-        private void ZdefiniujContext()
-        {
-            var options = new DbContextOptionsBuilder<TestContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-
-            this._testContext = new TestContext(options);
-            _testContext.Database.EnsureCreated();
         }
     }
 }

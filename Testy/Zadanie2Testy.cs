@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using Xunit;
 using Zadanie02.Const;
+using Zadanie02.Database;
 using Zadanie02.Interfaces;
 using Zadanie02.Models;
 using Zadanie02.Services;
@@ -16,10 +19,14 @@ namespace Testy
         {
             var services = new ServiceCollection();
             services.AddTransient<IPismoService, PismoService>();
+            services.AddDbContextPool<PismoContext>(
+                            options => options.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()));
 
             var serviceProvider = services.BuildServiceProvider();
 
             _pismoService = serviceProvider.GetService<IPismoService>();
+            serviceProvider.GetService<PismoContext>().Database.EnsureCreated();
+
         } 
         /* Wersja pierwsza w zasadzie to tak bym przetestowała ten problem - porownała otrzymane wyniki z oczekiwaniami */
         [Fact]

@@ -5,21 +5,9 @@ namespace Zadanie01.Database
 {
     public class TestContext : DbContext
     {
-        private readonly string connectionString;
-
-        //public TestContext(string connectionString) : base()
-        //{
-        //    this.connectionString = connectionString;
-        //}
-
         public TestContext(DbContextOptions<TestContext> options) : base(options)
         {
         }
-        public TestContext() : base() { }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(connectionString);
-        //}
 
         public DbSet<Pismo> Pisma { get; set; }
         public DbSet<Korespondencja> Korespondencje { get; set; }
